@@ -15,29 +15,34 @@
  *******************************************************************************/ 
 package application.rest;
 
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 
+import application.service.SampleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@ApplicationPath("rest")
-@Path("/")
+@ApplicationPath("api")
 @Api(description = "Sample REST application")
-public class LibertyRestEndpoint extends Application {
+@Path("/")
+public class SampleRest extends Application {
+    SampleService sampleService = new SampleService();
 
     @GET
-    @Path("/")
+    @Path("/hello")
 	@ApiOperation(value = "A sample REST endpoint",
                   notes = "GET operation of a sample REST endpoint")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "successful operation") })
-    public String hello() {
-        return "Hello from the REST endpoint!";
+    public String hello(@QueryParam("caller") String caller) {
+        return sampleService.hello(caller);
     }
-
 }

@@ -1,0 +1,12 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <weaver options="-verbose -showWeaveInfo -debug">
+        <include within="* *"/>
+        <include within="aspect.TracingAspect"/>
+        <exclude within="aspect.SequenceEvent"/>
+    </weaver>
+
+    <aspects>
+        <aspect name="aspect.TracingAspect"/>
+    </aspects>
+</aspectj>
