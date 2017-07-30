@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/ 
+ *******************************************************************************/
 package it;
 
 import static org.junit.Assert.assertTrue;
@@ -29,12 +29,11 @@ public class EndpointTest {
         String port = System.getProperty("liberty.test.port");
         String war = System.getProperty("war.name");
         String url = "http://localhost:" + port + "/" + war + endpoint;
-        System.out.println("Testing " + url);
         Response response = sendRequest(url, "GET");
         int responseCode = response.getStatus();
         assertTrue("Incorrect response code: " + responseCode,
                    responseCode == 200);
-        
+
         String responseString = response.readEntity(String.class);
         response.close();
         assertTrue("Incorrect response, response is " + responseString, responseString.contains(expectedOutput));

@@ -1,9 +1,14 @@
 <!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 <aspectj>
     <weaver options="-verbose -showWeaveInfo -debug">
-        <include within="* *"/>
+        <include within="application..*"/>
         <include within="aspect.TracingAspect"/>
-        <exclude within="aspect.SequenceEvent"/>
+        <exclude within="aspect.AspectUtils"/>
+        <exclude within="aspect.JoinPointInfo"/>
+        <exclude within="aspect.EventStore"/>
+        <exclude within="aspect.PlantUmlWriter"/>
+        <exclude within="aspect.JoinPointEvent"/>
+        <exclude within="aspect.EventType"/>
     </weaver>
 
     <aspects>

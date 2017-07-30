@@ -12,16 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/ 
-package it;
+ *******************************************************************************/
+package it.rest;
 
+import it.EndpointTest;
 import org.junit.Test;
 
 public class TestApplication extends EndpointTest {
 
     @Test
     public void testDeployment() {
-        testEndpoint("/api/hello", "{}");
+        testEndpoint("/api/hello?caller=dave", "Hi dave from the world");
     }
 
 }

@@ -3,40 +3,42 @@ package aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
 
-import java.util.Arrays;
+import static aspect.EventType.CALL;
+import static aspect.EventType.RETURN;
 
 /**
  * Created by david on 2017/07/30.
  */
 @Aspect
 public class TracingAspect {
+    private EventStore eventStore = EventStore.getInstance();
+    private PlantUmlWriter writer = new PlantUmlWriter();
+    private String includedPackage = "application";
+
     @Around("execution(* * (..))")
     public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        try {
+            JoinPointInfo info = AspectUtils.getJoinPointInfo(joinPoint);
 
-//        EventStore.getInstance().addEvent(
-//                new SequenceEvent(
-//                        methodSignature.getDeclaringTypeName(),
-//                        methodSignature.getName(),
-//                        methodSignature.getDeclaringTypeName(),
-//                        methodSignature.getName(),
-//                        Arrays.asList(methodSignature.getParameterTypes()),
-//                        Arrays.asList(joinPoint.getArgs()),
-//                        joinPoint.
-//                ));
+            if (info.getCallingClassName().startsWith(includedPackage) &&
+                    info.getCalledClassName().startsWith(includedPackage)) {
+                System.out.print(writer.writeCallSequence(info));
+                eventStore.addEvent(new JoinPointEvent(CALL, info));
+            }
 
-//        String callingClassName = methodSignature.getMethod().getDeclaringClass().getCanonicalName();
-//        System.out.println(joinPoint + " " + callingClassName);
+            Object returnValue = joinPoint.proceed();
 
-        System.out.println(joinPoint);
-        System.out.println(joinPoint.getSignature());
+            if (info.getCallingClassName().startsWith(includedPackage) &&
+                    info.getCalledClassName().startsWith(includedPackage)) {
+                System.out.print(writer.writeReturnSequence(info));
+                eventStore.addEvent(new JoinPointEvent(RETURN, info));
+            }
 
-        Object returnValue = joinPoint.proceed();
-
-        System.out.println(returnValue + " (" + returnValue.getClass().getName() + ")");
-
-        return returnValue;
+            return returnValue;
+        } catch (Throwable t) {
+            t.printStackTrace();
+            throw t;
+        }
     }
 }

@@ -10,7 +10,7 @@ import java.util.Set;
  * Created by david on 2017/07/30.
  */
 public class EventStore {
-    private Map<String, List<SequenceEvent>> eventMap = new HashMap<>();
+    private Map<String, List<JoinPointEvent>> eventMap = new HashMap<>();
     private static final EventStore eventStore = new EventStore();
 
     private EventStore() {
@@ -21,9 +21,9 @@ public class EventStore {
         return eventStore;
     }
 
-    public void addEvent(SequenceEvent event) {
+    public void addEvent(JoinPointEvent event) {
         String context = System.getProperty("test.context", "NoContext.method");
-        List<SequenceEvent> events = eventMap.get(context);
+        List<JoinPointEvent> events = eventMap.get(context);
         if (events == null) {
             events = new ArrayList<>();
             eventMap.put(context, events);
@@ -31,7 +31,7 @@ public class EventStore {
         events.add(event);
     }
 
-    public List<SequenceEvent> getEvents(String context) {
+    public List<JoinPointEvent> getEvents(String context) {
         return eventMap.get(context);
     }
 
