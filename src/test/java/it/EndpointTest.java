@@ -47,4 +47,13 @@ public class EndpointTest {
         Response response = invoBuild.build(requestType).invoke();
         return response;
     }
+
+    public void setTestContext() {
+        String className = Thread.currentThread().getStackTrace()[2].getClassName();
+        className = className.substring(className.lastIndexOf(".") + 1);
+        String testContext = className + "." + Thread.currentThread().getStackTrace()[2].getMethodName();
+        testEndpoint(
+                "/rest/context?test-name=" + testContext,
+                "test context set to '" + testContext + "'");
+    }
 }

@@ -22,6 +22,8 @@ public class TestApplication extends EndpointTest {
 
     @Test
     public void testDeployment() {
+        setTestContext();
+
         testEndpoint("/api/hello?caller=dave", "Hi dave from the world");
     }
 
