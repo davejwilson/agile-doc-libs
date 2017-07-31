@@ -1,4 +1,4 @@
-== Implementation Details
+== implementation details
 
 This project has been implemented using various libraries to
 help with producing documentation. These include:

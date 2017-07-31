@@ -1,4 +1,4 @@
-== Requirements
+== requirements
 
 * As a user, I can backup my entire hard drive.
 * As a power user, I can specify files or folders to backup based on file size, date created and date modified.

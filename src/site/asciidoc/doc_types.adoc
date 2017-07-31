@@ -1,4 +1,4 @@
-== Documentation Types
+== documentation types
 
 Documentation types that have been produced include:
 
