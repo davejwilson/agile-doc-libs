@@ -1,0 +1,3 @@
+== Architecture
+
+image:../resources/images/component-diagram.png

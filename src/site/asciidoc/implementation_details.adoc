@@ -1,0 +1,11 @@
+== Implementation Details
+
+This project has been implemented using various libraries to
+help with producing documentation. These include:
+
+* Swagger
+* AspectJ
+* PlantUML Plugin
+* Maven Site Plugin
+* Ascii Doctor Maven Site Plugin
+* UML Doclet Plugin

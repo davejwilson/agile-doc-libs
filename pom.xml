@@ -46,7 +46,12 @@
 
         <!-- Overriden in the Bluemix profile -->
         <running.bluemix>false</running.bluemix>
-    <app.name>agile-doc-libs</app.name>
+        <app.name>agile-doc-libs</app.name>
+
+        <asciidoctor.maven.plugin.version>1.5.3</asciidoctor.maven.plugin.version>
+        <asciidoctorj.version>1.5.4.1</asciidoctorj.version>
+        <jruby.version>1.7.25</jruby.version>
+        <asciidoctorj.pdf.version>1.5.0-alpha.11</asciidoctorj.pdf.version>
     </properties>
 
     <repositories>
@@ -414,11 +419,81 @@
                         <artifactId>uml-java-doclet</artifactId>
                         <version>1.0-SNAPSHOT</version>
                     </docletArtifact>
-                    <!-- -linetype polyline / spline / ortho (default) -->
-                    <!-- -dependencies public (default) / protected / package / private -->
                     <additionalparam></additionalparam>
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>${asciidoctor.maven.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-pdf</artifactId>
+                        <version>${asciidoctorj.pdf.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jruby</groupId>
+                        <artifactId>jruby-complete</artifactId>
+                        <version>${jruby.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj</artifactId>
+                        <version>${asciidoctorj.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDirectory>src/site/asciidoc</sourceDirectory>
+                    <attributes>
+                        <endpoint-url>http://example.org</endpoint-url>
+                        <sourcedir>${project.build.sourceDirectory}</sourcedir>
+                        <project-version>${project.version}</project-version>
+                    </attributes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>asciidoc-usermanual-to-pdf</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDocumentName>main.adoc</sourceDocumentName>
+                            <backend>pdf</backend>
+                            <doctype>book</doctype>
+                            <sourceHighlighter>rouge</sourceHighlighter>
+                            <attributes>
+                                <icons>font</icons>
+                                <pagenums/>
+                                <toc/>
+                                <idprefix/>
+                                <idseparator>-</idseparator>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>asciidoc-to-html</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html5</backend>
+                            <sourceHighlighter>coderay</sourceHighlighter>
+                            <attributes>
+                                <imagesdir>./images</imagesdir>
+                                <toc>left</toc>
+                                <icons>font</icons>
+                                <sectanchors>true</sectanchors>
+                                <idprefix/>
+                                <idseparator>-</idseparator>
+                                <docinfo1>true</docinfo1>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

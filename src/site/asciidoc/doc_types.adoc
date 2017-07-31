@@ -1,0 +1,10 @@
+== Documentation Types
+
+Documentation types that have been produced include:
+
+* Swagger JSON
+* Swagger UI
+* Asciidoc
+* Javadoc with UML
+* Maven Site with Test Sequences UML
+* Maven Standard Reports

@@ -1,0 +1,11 @@
+= agile documentation libraries
+
+This project uses some libraries that can assist with documentation
+
+include::requirements.adoc[]
+
+include::architecture.adoc[]
+
+include::implementation_details.adoc[]
+
+include::doc_types.adoc[]
