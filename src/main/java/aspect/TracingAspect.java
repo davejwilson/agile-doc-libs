@@ -15,6 +15,7 @@ public class TracingAspect {
     private EventStore eventStore = EventStore.getInstance();
     private PlantUmlWriter writer = new PlantUmlWriter();
     private String includedPackage = "application";
+    private TracingShutdownThread shutdownThread = new TracingShutdownThread();
 
     @Around("execution(* * (..))")
     public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -23,7 +24,7 @@ public class TracingAspect {
 
             if (info.getCallingClassName().startsWith(includedPackage) &&
                     info.getCalledClassName().startsWith(includedPackage)) {
-                System.out.print(writer.writeCallSequence(info));
+                System.out.println(writer.writeCallSequence(info));
                 eventStore.addEvent(new JoinPointEvent(CALL, info));
             }
 
@@ -31,7 +32,7 @@ public class TracingAspect {
 
             if (info.getCallingClassName().startsWith(includedPackage) &&
                     info.getCalledClassName().startsWith(includedPackage)) {
-                System.out.print(writer.writeReturnSequence(info));
+                System.out.println(writer.writeReturnSequence(info));
                 eventStore.addEvent(new JoinPointEvent(RETURN, info));
             }
 

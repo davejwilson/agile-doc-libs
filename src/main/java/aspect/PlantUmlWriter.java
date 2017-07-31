@@ -9,7 +9,7 @@ public class PlantUmlWriter {
             .append(info.getCallingName())
             .append(" -> ")
             .append(info.getCalledName())
-            .append(" : ").append(info.getCalledMethodName()).append("(").append(info.getParamsString()).append(")\n")
+            .append(" : ").append(info.getCalledMethodName()).append("(").append(info.getParamsString()).append(")")
             .toString();
     }
 
@@ -18,7 +18,7 @@ public class PlantUmlWriter {
                 .append(info.getCalledName())
                 .append(" --> ")
                 .append(info.getCallingName())
-                .append(" : ").append(info.getReturnType().getSimpleName()).append('\n')
+                .append(" : ").append(info.getReturnType().getSimpleName())
                 .toString();
     }
 }
