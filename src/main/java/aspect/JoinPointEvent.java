@@ -11,4 +11,5 @@ import lombok.Getter;
 public class JoinPointEvent {
     private EventType eventType;
     private JoinPointInfo info;
+    private long duration;
 }

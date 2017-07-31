@@ -19,6 +19,7 @@ public class JoinPointInfo {
     private String calledMethodName;
     private Class[] paramTypes;
     private String[] paramNames;
+    private Object[] paramValues;
     private Class returnType;
 
     public String getCallingName() {
@@ -40,7 +41,9 @@ public class JoinPointInfo {
             paramString
                     .append(paramTypes[i].getSimpleName())
                     .append(' ')
-                    .append(paramNames[i]);
+                    .append(paramNames[i])
+                    .append(" = ")
+                    .append(paramValues[i]);
         }
         return paramString.toString();
     }

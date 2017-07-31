@@ -25,15 +25,18 @@ public class TracingAspect {
             if (info.getCallingClassName().startsWith(includedPackage) &&
                     info.getCalledClassName().startsWith(includedPackage)) {
                 System.out.println(writer.writeCallSequence(info));
-                eventStore.addEvent(new JoinPointEvent(CALL, info));
+                eventStore.addEvent(new JoinPointEvent(CALL, info, 0));
             }
 
+            long start = System.currentTimeMillis();
             Object returnValue = joinPoint.proceed();
+            long end = System.currentTimeMillis();
+            long duration = end - start;
 
             if (info.getCallingClassName().startsWith(includedPackage) &&
                     info.getCalledClassName().startsWith(includedPackage)) {
-                System.out.println(writer.writeReturnSequence(info));
-                eventStore.addEvent(new JoinPointEvent(RETURN, info));
+                System.out.println(writer.writeReturnSequence(info, duration));
+                eventStore.addEvent(new JoinPointEvent(RETURN, info, duration));
             }
 
             return returnValue;

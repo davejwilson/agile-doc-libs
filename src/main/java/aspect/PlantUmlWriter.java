@@ -13,12 +13,12 @@ public class PlantUmlWriter {
             .toString();
     }
 
-    public String writeReturnSequence(JoinPointInfo info) {
+    public String writeReturnSequence(JoinPointInfo info, long duration) {
         return new StringBuilder()
                 .append(info.getCalledName())
                 .append(" --> ")
                 .append(info.getCallingName())
-                .append(" : ").append(info.getReturnType().getSimpleName())
+                .append(" : ").append(info.getReturnType().getSimpleName()).append(" (").append(duration).append("ms)")
                 .toString();
     }
 }

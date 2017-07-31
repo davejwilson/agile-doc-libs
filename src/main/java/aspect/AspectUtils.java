@@ -15,6 +15,7 @@ public class AspectUtils {
                 ((MethodSignature) joinPoint.getSignature()).getMethod().getName(),
                 ((MethodSignature) joinPoint.getSignature()).getParameterTypes(),
                 ((MethodSignature) joinPoint.getSignature()).getParameterNames(),
+                joinPoint.getArgs(),
                 ((MethodSignature) joinPoint.getSignature()).getReturnType()
         );
     }

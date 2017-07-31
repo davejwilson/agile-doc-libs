@@ -86,7 +86,7 @@ public class TracingShutdownThread extends Thread {
         for (JoinPointEvent event : events) {
             writer.println( event.getEventType().ordinal() == EventType.CALL.ordinal() ?
                     umlWriter.writeCallSequence(event.getInfo()) :
-                    umlWriter.writeReturnSequence(event.getInfo()) );
+                    umlWriter.writeReturnSequence(event.getInfo(), event.getDuration()) );
         }
         writer.println("@enduml");
         writer.close();
