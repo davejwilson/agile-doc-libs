@@ -18,13 +18,34 @@ package it.rest;
 import it.EndpointTest;
 import org.junit.Test;
 
-public class TestApplication extends EndpointTest {
+public class AppTest extends EndpointTest {
 
     @Test
-    public void testDeployment() {
+    public void testDave() {
         setTestContext();
 
         testEndpoint("/api/hello?caller=dave", "Hi dave from the world");
+    }
+
+    @Test
+    public void testJack() {
+        setTestContext();
+
+        testEndpoint("/api/hello?caller=jack", "Hi jack from up the hill");
+    }
+
+    @Test
+    public void testJill() {
+        setTestContext();
+
+        testEndpoint("/api/hello?caller=jill", "Hi jill from down the hill");
+    }
+
+    @Test
+    public void testEddy() {
+        setTestContext();
+
+        testEndpoint("/api/hello?caller=eddy", "i don't know you");
     }
 
 }
